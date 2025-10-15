@@ -9,3 +9,7 @@ body {
   background-color: #131312;
   color: #ece8e5;
 }
+
+.fixed-width-digits {
+  font-variant-numeric: tabular-nums;
+}
