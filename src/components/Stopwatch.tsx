@@ -47,16 +47,16 @@ const Stopwatch: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col mx-auto">
+    <div className="flex flex-col mx-auto dark:text-dark-white">
       <div className="flex flex-row mx-auto">
         <span>
-          <p className="text-[30rem] fixed-width-digits">
+          <p className="text-[30rem] font-medium dark:text-dark-white fixed-width-digits">
             {minutes < 10 ? `0${minutes}` : minutes}
           </p>
         </span>
-        <p className="text-[30rem]">:</p>
+        <p className="text-[30rem] dark:text-white">:</p>
         <span>
-          <p className="text-[30rem] fixed-width-digits">
+          <p className="text-[30rem] font-medium dark:text-dark-white fixed-width-digits">
             {seconds < 10 ? `0${seconds}` : seconds}
           </p>
         </span>
@@ -64,7 +64,7 @@ const Stopwatch: React.FC = () => {
       <div className="flex items-center mx-auto">
         <button
           type="button"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-4xl px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 cursor-pointer"
+          className="text-white w-38 p-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-4xl me-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-dark-white focus:outline-none cursor-pointer"
           onClick={() => {
             if (isRunning) {
               stop();
@@ -77,7 +77,7 @@ const Stopwatch: React.FC = () => {
         </button>
         <button
           type="button"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-4xl px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 cursor-pointer"
+          className="text-white w-38 p-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-4xl me-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-dark-white focus:outline-none cursor-pointer"
           onClick={restart}
         >
           Restart
