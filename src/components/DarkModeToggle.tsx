@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import EndSession from "./EndSession";
 
-const DarkModeToggle: React.FC = () => {
+interface ChildProps {
+  totalTime: number;
+  resetTime: (x: boolean) => void;
+}
+
+const DarkModeToggle = ({ totalTime, resetTime }: ChildProps) => {
   const defaultState = localStorage.getItem("theme") || "light";
   const [theme, setTheme] = useState(defaultState);
 
@@ -14,15 +20,18 @@ const DarkModeToggle: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center ml-4">
-      <span className="dark:text-dark-white">Light</span>
-      <div
-        className="switch-outer w-12 h-6 bg-neutral-300 rounded-4xl relative m-4 cursor-pointer dark:bg-blue-500"
-        onClick={handleThemeChange}
-      >
-        <span className="switch-inner absolute w-4 h-4 bg-white rounded-full top-1 left-1 duration-200 dark:left-7"></span>
+    <div className="flex items-center justify-between mx-4">
+      <div className="flex flex-row items-center justify-center">
+        <span className="dark:text-dark-white">Light</span>
+        <div
+          className="switch-outer w-12 h-6 bg-neutral-300 rounded-4xl relative m-4 cursor-pointer dark:bg-blue-500"
+          onClick={handleThemeChange}
+        >
+          <span className="switch-inner absolute w-4 h-4 bg-white rounded-full top-1 left-1 duration-200 dark:left-7"></span>
+        </div>
+        <span className="dark:text-dark-white">Dark</span>
       </div>
-      <span className="dark:text-dark-white">Dark</span>
+      {totalTime > 0 ? <EndSession resetTime={resetTime} /> : <></>}
     </div>
   );
 };
