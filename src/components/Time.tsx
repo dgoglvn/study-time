@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { Stopwatch } from "../classes/Stopwatch";
-
 const stopwatch = new Stopwatch(1000);
 
 interface ChildProps {
@@ -96,14 +95,17 @@ const Time = ({ handleTotalTime }: ChildProps) => {
           type="button"
           className="text-white w-38 p-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-4xl me-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-dark-white focus:outline-none cursor-pointer"
           onClick={() => {
-            if (isRunning) {
-              stop();
+            if (stopwatch.checkIsRunning()) {
+              stopwatch.stop();
             } else {
-              start();
+              stopwatch.start();
             }
           }}
         >
-          {isRunning ? "Pause" : "Start"}
+          {/* TODO: what i think the problem is here is that the webpage doesn't 
+          know when isRunning changes, so it doesn't know if it needs to re-render
+          the button. */}
+          {stopwatch.checkIsRunning() ? "Pause" : "Start"}
         </button>
         {/* <button
           type="button"
