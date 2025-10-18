@@ -1,12 +1,12 @@
+/** every Listener is a callback function that returns nothing.
+ */
+type Listener = (time: number) => void;
+
 export class Stopwatch {
   private _count: number = 0;
-  private _interval: number;
   private _timerId: number | undefined;
   private _isRunning: boolean = false;
-
-  constructor(interval: number) {
-    this._interval = interval;
-  }
+  private _listeners: Listener[] = [];
 
   /** start counting */
   public start(): void {
@@ -18,8 +18,9 @@ export class Stopwatch {
 
     this._timerId = setInterval(() => {
       this._count++;
+      this.notify();
       console.log(`time: ${this._count}`);
-    }, this._interval);
+    }, 1000);
   }
 
   /** stop counting */
@@ -35,9 +36,27 @@ export class Stopwatch {
     this._count = 0;
   }
 
-  /** helper method for checking isRunning */
-  public checkIsRunning(): boolean {
-    console.log(this._isRunning);
-    return this._isRunning;
+  /** returns the value of count */
+  get value() {
+    return this._count;
+  }
+
+  /**  */
+  public subscribe(listener: Listener) {
+    this._listeners.push(listener);
+  }
+
+  public unsubscribe(listener: Listener) {
+    // creates a new list from the original list without the passed in lister as argument;
+    // removes the listener.
+    this._listeners = this._listeners.filter((l) => l !== listener);
+  }
+
+  /** notifies each listener in the list and updates them with the current count
+   */
+  private notify(): void {
+    this._listeners.forEach((listener) => {
+      listener(this._count);
+    });
   }
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DarkModeToggle from "./components/DarkModeToggle";
-import Stopwatch from "./components/Time";
+import Stopwatch from "./components/StopwatchComponent";
 
 function App() {
   const [totalTime, setTotalTime] = useState<number>(0);

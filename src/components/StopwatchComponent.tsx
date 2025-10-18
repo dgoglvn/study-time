@@ -1,12 +1,34 @@
 import { useState, useRef, useEffect } from "react";
 import { Stopwatch } from "../classes/Stopwatch";
-const stopwatch = new Stopwatch(1000);
+
+const formatHMMSS = (time: number): string => {
+  const hours = Math.trunc(time / 3600);
+  const seconds = (time % 3600) % 60;
+  const minutes = Math.trunc((time % 3600) / 60);
+
+  let timeString: string;
+  const minutesStr: string = minutes.toString().padStart(2, "0");
+  const secondsStr: string = seconds.toString().padStart(2, "0");
+
+  if (hours > 0) {
+    timeString = `${hours}:${minutesStr}:${secondsStr}`;
+  } else {
+    timeString = `${minutesStr}:${secondsStr}`;
+  }
+
+  return timeString;
+};
 
 interface ChildProps {
   handleTotalTime: () => void;
 }
 
 const Time = ({ handleTotalTime }: ChildProps) => {
+  const stopwatchRef = useRef<Stopwatch | null>(null);
+
+  // TODO: fix the line below
+  // const [time, setTime] = useState<number>(stopwatchRef.current?.value);
+
   // const [totalTime, setTotalTime] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
@@ -65,7 +87,7 @@ const Time = ({ handleTotalTime }: ChildProps) => {
   return (
     <div className="flex flex-col mx-auto dark:text-dark-white">
       <div className="flex flex-row mx-auto">
-        {hours > 0 ? (
+        {/* {hours > 0 ? (
           <>
             <span>
               <p className="text-[26rem] font-medium dark:text-dark-white fixed-width-digits">
@@ -87,25 +109,18 @@ const Time = ({ handleTotalTime }: ChildProps) => {
           <p className="text-[26rem] font-medium dark:text-dark-white fixed-width-digits">
             {seconds < 10 ? `0${seconds}` : seconds}
           </p>
-        </span>
+        </span> */}
       </div>
 
       <div className="flex items-center mx-auto">
         <button
           type="button"
           className="text-white w-38 p-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-4xl me-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-dark-white focus:outline-none cursor-pointer"
-          onClick={() => {
-            if (stopwatch.checkIsRunning()) {
-              stopwatch.stop();
-            } else {
-              stopwatch.start();
-            }
-          }}
         >
           {/* TODO: what i think the problem is here is that the webpage doesn't 
           know when isRunning changes, so it doesn't know if it needs to re-render
           the button. */}
-          {stopwatch.checkIsRunning() ? "Pause" : "Start"}
+          Start
         </button>
         {/* <button
           type="button"
