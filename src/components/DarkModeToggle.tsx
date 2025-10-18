@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import EndSession from "./EndSession";
+import { Stopwatch } from "../classes/Stopwatch";
+
+const stopwatch = new Stopwatch();
 
 interface ChildProps {
   totalTime: number;

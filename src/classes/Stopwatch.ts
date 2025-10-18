@@ -14,7 +14,6 @@ export class Stopwatch {
     if (this._isRunning) return;
 
     this._isRunning = true;
-    console.log(this._isRunning);
 
     this._timerId = setInterval(() => {
       this._count++;
@@ -27,7 +26,6 @@ export class Stopwatch {
   public stop(): void {
     clearInterval(this._timerId);
     this._isRunning = false;
-    console.log("stopping...");
   }
 
   /** reset count back to 0 */
@@ -41,11 +39,23 @@ export class Stopwatch {
     return this._count;
   }
 
-  /**  */
-  public subscribe(listener: Listener) {
-    this._listeners.push(listener);
+  /** returns the value of isRunning */
+  get isRunning() {
+    return this._isRunning;
   }
 
+  /** subscribes to events or state changes produced by the Stopwatch class.
+   * returns an unsubscribe function for convenience.
+   */
+  public subscribe(listener: Listener): () => void {
+    this._listeners.push(listener);
+
+    listener(this._count);
+
+    return () => this.unsubscribe(listener);
+  }
+
+  /** ubsubscribes from events */
   public unsubscribe(listener: Listener) {
     // creates a new list from the original list without the passed in lister as argument;
     // removes the listener.

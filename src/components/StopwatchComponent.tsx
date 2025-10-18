@@ -19,70 +19,35 @@ const formatHMMSS = (time: number): string => {
   return timeString;
 };
 
-interface ChildProps {
-  handleTotalTime: () => void;
-}
+const Time = () => {
+  const stopwatchRef = useRef<Stopwatch>(new Stopwatch());
 
-const Time = ({ handleTotalTime }: ChildProps) => {
-  const stopwatchRef = useRef<Stopwatch | null>(null);
-
-  // TODO: fix the line below
-  // const [time, setTime] = useState<number>(stopwatchRef.current?.value);
-
-  // const [totalTime, setTotalTime] = useState<number>(0);
-  const [seconds, setSeconds] = useState<number>(0);
-  const [minutes, setMinutes] = useState<number>(0);
-  const [hours, setHours] = useState<number>(0);
-  const [isRunning, setIsRunning] = useState<boolean>(false);
-
-  const timerId = useRef<number | undefined>(undefined);
+  const [time, setTime] = useState<number>(stopwatchRef.current.value);
+  const [isRunning, setIsRunning] = useState<boolean>(
+    stopwatchRef.current.isRunning
+  );
 
   useEffect(() => {
-    if (seconds === 60) {
-      setMinutes((c) => c + 1);
-      setSeconds(0);
-    }
-  }, [seconds]);
+    const sw = stopwatchRef.current!;
+    const unsubscribe = sw.subscribe(setTime);
 
-  useEffect(() => {
-    if (minutes === 60) {
-      setHours((c) => c + 1);
-      setMinutes(0);
-    }
-  }, [minutes]);
+    return () => {
+      unsubscribe();
+      sw.stop();
+    };
+  }, []);
 
-  useEffect(() => {
-    if (isRunning) {
-      document.title = `${hours.toString()}:${minutes
-        .toString()
-        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    } else {
-      document.title = "Study Time";
-    }
-  }, [minutes, seconds, hours, isRunning]);
-
-  const start = () => {
-    setIsRunning(true);
-
-    if (isRunning) return;
-
-    timerId.current = setInterval(() => {
-      handleTotalTime();
-      setSeconds((c) => c + 1);
-    }, 1000);
+  const handleStart = () => {
+    stopwatchRef.current!.start();
+    setIsRunning(stopwatchRef.current.isRunning);
   };
 
-  const stop = () => {
-    clearInterval(timerId.current);
-    setIsRunning(false);
+  const handleStop = () => {
+    stopwatchRef.current!.stop();
+    setIsRunning(stopwatchRef.current.isRunning);
   };
 
-  const reset = () => {
-    stop();
-    setSeconds(0);
-    setMinutes(0);
-    setHours(0);
-  };
+  const handleReset = () => stopwatchRef.current!.reset();
 
   return (
     <div className="flex flex-col mx-auto dark:text-dark-white">
@@ -112,15 +77,19 @@ const Time = ({ handleTotalTime }: ChildProps) => {
         </span> */}
       </div>
 
+      <p className="text-center text-[22rem] font-semibold dark:text-dark-white fixed-width-digits">
+        {formatHMMSS(time)}
+      </p>
       <div className="flex items-center mx-auto">
         <button
           type="button"
           className="text-white w-38 p-3 bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-4xl me-2 dark:bg-blue-500 dark:hover:bg-blue-600 dark:text-dark-white focus:outline-none cursor-pointer"
+          onClick={() => {
+            if (isRunning) handleStop();
+            else handleStart();
+          }}
         >
-          {/* TODO: what i think the problem is here is that the webpage doesn't 
-          know when isRunning changes, so it doesn't know if it needs to re-render
-          the button. */}
-          Start
+          {isRunning ? "Pause" : "Start"}
         </button>
         {/* <button
           type="button"
