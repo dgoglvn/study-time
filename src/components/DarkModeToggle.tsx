@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import EndSession from "./EndSession";
-import { Stopwatch } from "../classes/Stopwatch";
-
-const stopwatch = new Stopwatch();
 
 interface ChildProps {
-  totalTime: number;
-  resetTime: (x: boolean) => void;
+  time: number;
+  handleReset: () => void;
 }
 
-const DarkModeToggle = ({ totalTime, resetTime }: ChildProps) => {
+const DarkModeToggle = ({ time, handleReset }: ChildProps) => {
   const defaultState = localStorage.getItem("theme") || "light";
   const [theme, setTheme] = useState(defaultState);
 
@@ -34,7 +31,7 @@ const DarkModeToggle = ({ totalTime, resetTime }: ChildProps) => {
         </div>
         <span className="dark:text-dark-white">Dark</span>
       </div>
-      {totalTime > 0 ? <EndSession resetTime={resetTime} /> : <></>}
+      {time > 0 ? <EndSession handleReset={handleReset} /> : <></>}
     </div>
   );
 };

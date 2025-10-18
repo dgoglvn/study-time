@@ -1,6 +1,3 @@
-import { useState, useRef, useEffect } from "react";
-import { Stopwatch } from "../classes/Stopwatch";
-
 const formatHMMSS = (time: number): string => {
   const hours = Math.trunc(time / 3600);
   const seconds = (time % 3600) % 60;
@@ -19,64 +16,21 @@ const formatHMMSS = (time: number): string => {
   return timeString;
 };
 
-const Time = () => {
-  const stopwatchRef = useRef<Stopwatch>(new Stopwatch());
+interface ChildProps {
+  time: number;
+  isRunning: boolean;
+  handleStart: () => void;
+  handleStop: () => void;
+}
 
-  const [time, setTime] = useState<number>(stopwatchRef.current.value);
-  const [isRunning, setIsRunning] = useState<boolean>(
-    stopwatchRef.current.isRunning
-  );
-
-  useEffect(() => {
-    const sw = stopwatchRef.current!;
-    const unsubscribe = sw.subscribe(setTime);
-
-    return () => {
-      unsubscribe();
-      sw.stop();
-    };
-  }, []);
-
-  const handleStart = () => {
-    stopwatchRef.current!.start();
-    setIsRunning(stopwatchRef.current.isRunning);
-  };
-
-  const handleStop = () => {
-    stopwatchRef.current!.stop();
-    setIsRunning(stopwatchRef.current.isRunning);
-  };
-
-  const handleReset = () => stopwatchRef.current!.reset();
-
+const StopwatchComponent = ({
+  time,
+  isRunning,
+  handleStart,
+  handleStop,
+}: ChildProps) => {
   return (
     <div className="flex flex-col mx-auto dark:text-dark-white">
-      <div className="flex flex-row mx-auto">
-        {/* {hours > 0 ? (
-          <>
-            <span>
-              <p className="text-[26rem] font-medium dark:text-dark-white fixed-width-digits">
-                {hours}
-              </p>
-            </span>
-            <p className="text-[26rem] dark:text-white">:</p>
-          </>
-        ) : (
-          <></>
-        )}
-        <span>
-          <p className="text-[26rem] font-medium dark:text-dark-white fixed-width-digits">
-            {minutes < 10 ? `0${minutes}` : minutes}
-          </p>
-        </span>
-        <p className="text-[26rem] dark:text-white">:</p>
-        <span>
-          <p className="text-[26rem] font-medium dark:text-dark-white fixed-width-digits">
-            {seconds < 10 ? `0${seconds}` : seconds}
-          </p>
-        </span> */}
-      </div>
-
       <p className="text-center text-[22rem] font-semibold dark:text-dark-white fixed-width-digits">
         {formatHMMSS(time)}
       </p>
@@ -103,4 +57,4 @@ const Time = () => {
   );
 };
 
-export default Time;
+export default StopwatchComponent;

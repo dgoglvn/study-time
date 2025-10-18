@@ -18,7 +18,6 @@ export class Stopwatch {
     this._timerId = setInterval(() => {
       this._count++;
       this.notify();
-      console.log(`time: ${this._count}`);
     }, 1000);
   }
 
@@ -32,10 +31,11 @@ export class Stopwatch {
   public reset(): void {
     this.stop();
     this._count = 0;
+    this._isRunning = false;
   }
 
   /** returns the value of count */
-  get value() {
+  get count() {
     return this._count;
   }
 
