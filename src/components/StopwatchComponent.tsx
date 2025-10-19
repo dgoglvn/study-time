@@ -13,10 +13,13 @@ const StopwatchComponent = ({
   handleStart,
   handleStop,
 }: ChildProps) => {
+  const savedFormattedTime = localStorage.getItem("timeStr") || null;
+  const savedCount = Number(localStorage.getItem("count") || null);
+
   return (
     <div className="flex flex-col mx-auto h-11/12 items-center justify-center dark:text-dark-white">
-      <p className="text-center text-[22rem] font-semibold dark:text-dark-white fixed-width-digits">
-        {formatHMMSS(time)}
+      <p className="text-center text-[22rem] font-medium dark:text-dark-white fixed-width-digits">
+        {savedCount !== 0 ? savedFormattedTime : formatHMMSS(time)}
       </p>
       <div className="flex items-center mx-auto">
         <button

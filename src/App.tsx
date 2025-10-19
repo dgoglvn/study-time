@@ -3,6 +3,8 @@ import DarkModeToggle from "./components/DarkModeToggle";
 import StopwatchComponent from "./components/StopwatchComponent";
 import { Stopwatch } from "./classes/Stopwatch";
 
+import { formatHMMSS } from "./helpers/formatTime";
+
 function App() {
   const stopwatchRef = useRef<Stopwatch>(new Stopwatch());
 
@@ -21,6 +23,13 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isRunning && time !== 0) {
+      localStorage.setItem("timeStr", formatHMMSS(time));
+      localStorage.setItem("count", time.toString());
+    }
+  }, [isRunning, time]);
+
   const handleStart = (): void => {
     stopwatchRef.current!.start();
     setIsRunning(stopwatchRef.current.isRunning);
@@ -38,7 +47,7 @@ function App() {
   };
 
   return (
-    <div className="app h-screen dark:bg-neutral-900 select-none">
+    <div className="app h-screen font-geist-mono dark:bg-neutral-900 select-none">
       <DarkModeToggle time={time} handleReset={handleReset} />
       <StopwatchComponent
         time={time}

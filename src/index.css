@@ -1,7 +1,9 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap");
 
 @theme {
-  --font-sans: InterVariable, sans-serif;
+  /* --font-sans: InterVariable, sans-serif; */
+  --font-geist-mono: "Geist Mono", monospace;
   --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   --color-dark-white: #f2f3f4;
 }
