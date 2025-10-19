@@ -23,12 +23,12 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!isRunning && time !== 0) {
-      localStorage.setItem("timeStr", formatHMMSS(time));
-      localStorage.setItem("count", time.toString());
-    }
-  }, [isRunning, time]);
+  // useEffect(() => {
+  //   if (!isRunning && time !== 0) {
+  //     localStorage.setItem("timeStr", formatHMMSS(time));
+  //     localStorage.setItem("count", time.toString());
+  //   }
+  // }, [isRunning, time]);
 
   const handleStart = (): void => {
     stopwatchRef.current!.start();
