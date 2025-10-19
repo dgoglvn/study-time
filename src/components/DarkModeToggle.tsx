@@ -31,7 +31,7 @@ const DarkModeToggle = ({ time, handleReset }: ChildProps) => {
         </div>
         <span className="dark:text-dark-white">Dark</span>
       </div>
-      {time > 0 ? <EndSession handleReset={handleReset} /> : <></>}
+      {time > 0 ? <EndSession time={time} handleReset={handleReset} /> : <></>}
     </div>
   );
 };

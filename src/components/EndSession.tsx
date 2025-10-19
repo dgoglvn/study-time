@@ -1,13 +1,18 @@
+import { formatHMMSS } from "../helpers/formatTime";
+
 interface ChildProps {
+  time: number;
   handleReset: () => void;
 }
 
-const EndSession = ({ handleReset }: ChildProps) => {
+const EndSession = ({ time, handleReset }: ChildProps) => {
   const handleEndSessionPopup = (): void => {
     const result: boolean = confirm("End the session?");
 
-    if (result) handleReset();
-    else return;
+    if (result) {
+      handleReset();
+      console.log(`You spent ${formatHMMSS(time)} studying`);
+    } else return;
   };
 
   return (
