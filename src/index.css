@@ -2,37 +2,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @theme {
-  /* --font-sans: InterVariable, sans-serif; */
-  --font-geist-mono: "Geist Mono", monospace;
-  --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  --color-dark-white: #f2f3f4;
+    /* --font-sans: InterVariable, sans-serif; */
+    --font-geist-mono: "Geist Mono", monospace;
+    --font-sans--font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    --color-dark-white: #f2f3f4;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 .app {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family:
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen,
+        Ubuntu,
+        Cantarell,
+        "Open Sans",
+        "Helvetica Neue",
+        sans-serif;
 }
 
 .fixed-width-digits {
-  font-family: "Geist Mono", monospace;
-  /* background: linear-gradient(180deg, #ffffff 0%, #dbe4ff 60%, #cbd5e1 100%);
+    font-family: "Geist Mono", monospace;
+    /* background: linear-gradient(180deg, #ffffff 0%, #dbe4ff 60%, #cbd5e1 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent; */
 }
 
 .stopwatch-btn {
-  box-shadow: rgb(210, 210, 210) 0px 6px 0px;
-  text-transform: uppercase;
-  border-width: initial;
-  border-style: none;
-  transition: color 0.5s ease-in-out 0s;
+    box-shadow: rgb(235, 235, 235) 0px 6px 0px;
+    text-transform: uppercase;
+    border-width: initial;
+    border-style: none;
+    transition: color 0.5s ease-in-out 0s;
+}
+
+html.dark .stopwatch-btn {
+    box-shadow: #2c2c2c 0px 6px 0px;
 }
 
 .stopwatch-btn.active {
-  transform: translateY(6px);
-  box-shadow: none;
-  outline: none;
+    transform: translateY(6px);
+    box-shadow: none;
+    outline: none;
+}
+
+html.dark .stopwatch-btn.active {
+    box-shadow: none;
 }
