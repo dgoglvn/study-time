@@ -14,11 +14,11 @@ const StopwatchComponent = ({
   handleStop,
 }: ChildProps) => {
   return (
-    <div className="flex flex-col mx-auto h-10/12 items-center justify-center dark:text-dark-white">
-      <p className="text-centert tabular-nums lining-nums tracking-tight text-[clamp(6rem,20vw,30rem)] font-medium dark:text-dark-white fixed-width-digits">
-        {formatHMMSS(time)}
-      </p>
-      <div className="flex items-center mx-auto">
+    <div className="h-10/12 m-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col items-center justify-center gap-7 dark:text-dark-white">
+        <p className="text-centert tabular-nums lining-nums tracking-tight text-[clamp(6rem,20vw,30rem)] font-medium dark:text-dark-white fixed-width-digits">
+          {formatHMMSS(time)}
+        </p>
         <button
           type="button"
           className={
