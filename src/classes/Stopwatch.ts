@@ -3,7 +3,7 @@
 type Listener = (time: number) => void;
 
 export class Stopwatch {
-  public _count: number = 3600;
+  public _count: number = 0;
   private _timerId: number | undefined;
   private _isRunning: boolean = false;
   private _listeners: Listener[] = [];
