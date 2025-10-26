@@ -1,19 +1,21 @@
-import { useState } from "react";
+import {type ChangeEvent, useState} from "react";
+import {Task} from "../classes/Task.ts";
+import TaskItem from "../components/TaskItem.tsx";
 
 const TasksPage = () => {
   const [inputValue, setInputValue] = useState("");
-  const [task, setTask] = useState<string>("");
-  const [tasks, setTasks] = useState([]);
-  const today = new Date().toLocaleDateString();
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const handleChange = (e): void => {
-    setInputValue(e.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(event.target.value);
   };
 
-  const handleSubmit = (e): void => {
-    e.preventDefault();
-    setInputValue("");
-  };
+  const addTask = (event: { preventDefault: () => void; }): void => {
+      event.preventDefault();
+      if (inputValue.trim() === "") return; // prevent adding empty items
+      setTasks([...tasks, new Task(inputValue, false)]);
+      setInputValue("");
+  }
 
   return (
     <div className="flex-1">
@@ -35,7 +37,7 @@ const TasksPage = () => {
           <div className="relative p-5 sm:p-6">
             <form
               className="group grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 sm:gap-4"
-              onSubmit={handleSubmit}
+              onSubmit={addTask}
             >
               <label htmlFor="task" className="sr-only">
                 Task name
@@ -61,30 +63,21 @@ const TasksPage = () => {
 
           {/* tasks container */}
           <div className="p-4 sm:p-6">
-            <ul className="grid gap-2">
-              {/* example task item (will be replaced with *real* mapped items */}
-              <li className="group relative overflow-hidden rounded-2xl border border-white/30 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-xl px-4 py-3">
-                <p className="text-[15px] leading-snug text-slate-900 dark:text-slate-100">
-                  Sleep at least 7 hours
-                </p>
-              </li>
-            </ul>
-
-            <ul className="grid gap-2">
-              {/* example task item (will be replaced with *real* mapped items */}
-              <li className="group relative overflow-hidden rounded-2xl border border-white/30 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-xl px-4 py-3">
-                <p>Sleep at least 7 hours</p>
-              </li>
-            </ul>
-
-            {/* empty state (show when no tasks) */}
-            <div className="hidden items-center justify-center py-16 text-center text-slate-600 dark:text-slate-400">
-              <div>
-                <p className="mt-4 text-sm">
-                  No tasks yet - add your first one above.
-                </p>
-              </div>
-            </div>
+              {tasks.length === 0 ? (
+                  <div className="items-center justify-center py-16 text-center text-slate-600 dark:text-slate-400">
+                      <div>
+                          <p className="mt-4 text-sm">
+                              No tasks yet - add your first one above.
+                          </p>
+                      </div>
+                  </div>
+              ) : (
+                  <ul className="grid gap-2">
+                      {tasks.map((task: Task) => (
+                          <TaskItem key={task.id} text={task.text} completed={task.completed} />
+                      ))}
+                  </ul>
+              )}
           </div>
         </section>
       </div>

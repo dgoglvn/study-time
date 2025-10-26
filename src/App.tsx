@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import { toast, ToastContainer, Bounce } from "react-toastify";
-import DarkModeToggle from "./components/DarkModeToggle";
-import StopwatchComponent from "./components/StopwatchComponent";
 import { Stopwatch } from "./classes/Stopwatch";
 import { Routes, Route } from "react-router";
 import Home from "./pages/HomePage";
@@ -60,14 +58,7 @@ function App() {
 
   return (
     <div className="app h-screen flex flex-col font-geist-mono  select-none bg-gradient-to-b from-blue-50 to-neutral-50 dark:bg-none dark:bg-neutral-900">
-      {/*<DarkModeToggle time={time} handleReset={handleReset} />*/}
       <TopBar time={time} handleReset={handleReset} />
-      {/*<StopwatchComponent
-        time={time}
-        isRunning={isRunning}
-        handleStart={handleStart}
-        handleStop={handleStop}
-      />*/}
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -83,7 +74,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/todo" element={<TasksPage />} />
+        <Route path="/tasks" element={<TasksPage />} />
         <Route
           path="/stopwatch"
           element={

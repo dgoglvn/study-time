@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const NavBar = () => {
   return (
-    <div className="absolute left-1/2 transform -translate-x-1/2 flex justify-between px-8 w-96 rounded-full border backdrop-blur-2xl dark:text-dark-white">
+    <nav className="absolute left-1/2 transform -translate-x-1/2 flex justify-between px-8 w-96 rounded-full border backdrop-blur-2xl dark:text-dark-white">
       <Link
         to="/"
         className="flex flex-col items-center justify-center cursor-pointer"
@@ -12,7 +12,7 @@ const NavBar = () => {
         <p>Home</p>
       </Link>
       <Link
-        to="/todo"
+        to="/tasks"
         className="flex flex-col items-center justify-center cursor-pointer"
       >
         <ListTodo />
@@ -32,7 +32,7 @@ const NavBar = () => {
         <TrendingUp />
         <p>Progress</p>
       </Link>
-    </div>
+    </nav>
   );
 };
 
