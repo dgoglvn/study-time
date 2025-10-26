@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
-import EndSession from "./EndSession";
 
-interface ChildProps {
-  time: number;
-  handleReset: () => void;
-}
-
-const DarkModeToggle = ({ time, handleReset }: ChildProps) => {
+const DarkModeToggle = () => {
   const defaultState = localStorage.getItem("theme") || "light";
   const [theme, setTheme] = useState(defaultState);
 
@@ -31,7 +25,6 @@ const DarkModeToggle = ({ time, handleReset }: ChildProps) => {
         </div>
         <span className="dark:text-dark-white">Dark</span>
       </div>
-      {time > 0 ? <EndSession time={time} handleReset={handleReset} /> : <></>}
     </div>
   );
 };

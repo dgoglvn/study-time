@@ -16,7 +16,7 @@ const TasksPage = () => {
   };
 
   return (
-    <div className="min-h-dvh bg-gradient-to-b from-indigo-100 to-zinc-50">
+    <div className="flex-1">
       {/* subtle glassy overlay*/}
       <div className="absolute inset-0 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
 

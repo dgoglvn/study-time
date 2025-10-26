@@ -18,7 +18,7 @@ const EndSession = ({ time, handleReset }: ChildProps) => {
   return (
     <>
       <button
-        className="w-7 h-8 rounded-full bg-neutral-300 cursor-pointer dark:bg-zinc-700 dark:text-white"
+        className="w-8 h-8 rounded-full bg-neutral-300 cursor-pointer dark:bg-zinc-700 dark:text-white mr-4"
         onClick={handleEndSessionPopup}
       >
         X
